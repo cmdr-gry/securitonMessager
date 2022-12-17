@@ -32,14 +32,14 @@ contract Message {
 
     function checkPassword(string memory password) public view {
         // check if password is correct
-if (keccak256(password) == keccak256(messagePassword[msgIndex])) {                canView = true;
+if (keccak256(abi.encodePacked(password)) == keccak256(abi.encode(messagePassword[msgIndex]))) {                canView = true;
         }
     }
 
     function checkExpiry(uint expiry) public view {
         // check if message is expired
-        if (expiry > messageExpiry) {
-            canView = false;
+        if (expiry > messageExpiry[messageExpiry.length - 1]) {
+    canView = false;
         }
     }
 }
